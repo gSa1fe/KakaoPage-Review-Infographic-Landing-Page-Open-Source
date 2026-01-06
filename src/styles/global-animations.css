@@ -1,0 +1,100 @@
+/*PERFORMANCE OPTIMIZATIONS FOR ANIMATIONS */
+
+/* GPU Acceleration for all animated sections */
+.gpu-accelerated {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Section containment - prevents repaints outside the section */
+section {
+  contain: layout style paint;
+}
+
+/* Will-change hints for frequently animated properties */
+.will-change-transform {
+  will-change: transform;
+}
+
+.will-change-opacity {
+  will-change: opacity;
+}
+
+.will-change-transform-opacity {
+  will-change: transform, opacity;
+}
+
+/* Optimized backdrop filter with containment */
+.backdrop-blur-optimized {
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+  contain: paint;
+  transform: translateZ(0);
+}
+
+/* Force GPU layer for complex animations */
+.force-gpu-layer {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Optimize rotating elements */
+.rotating-element {
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+/* Optimized floating animations */
+.floating-element {
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+/* Reduced Motion Support for Accessibility */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Keep animations but make them instant for accessibility */
+  .gpu-accelerated,
+  .force-gpu-layer,
+  .rotating-element,
+  .floating-element {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Performance hints for image backgrounds */
+.bg-image-optimized {
+  contain: paint;
+  transform: translateZ(0);
+  will-change: contents;
+}
+
+/* Smooth scrolling with performance in mind */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Remove will-change after animation completes to save memory */
+@media (hover: hover) {
+  .will-change-on-hover {
+    will-change: auto;
+  }
+
+  .will-change-on-hover:hover {
+    will-change: transform;
+  }
+}
