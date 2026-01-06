@@ -9,8 +9,8 @@ interface StaggerContainerProps {
   className?: string
 }
 
-export function StaggerContainer({ 
-  children, 
+export function StaggerContainer({
+  children,
   className = "",
 }: StaggerContainerProps) {
   const { shouldDisableAnimations, durationMultiplier } = useAnimationConfig()
@@ -46,25 +46,25 @@ export function StaggerContainer({
 
 // Stagger Item - ใช้คู่กับ StaggerContainer
 export const staggerItem = {
-  hidden: { 
-    opacity: 0, 
+  hidden: {
+    opacity: 0,
     y: 30,
     scale: 0.95,
   },
-  show: { 
-    opacity: 1, 
+  show: {
+    opacity: 1,
     y: 0,
     scale: 1,
     transition: {
       duration: 0.5,
-      ease: [0.25, 0.46, 0.45, 0.94]
+      ease: [0.25, 0.46, 0.45, 0.94] as const
     }
   }
-}
+} as const
 
-export function StaggerItem({ 
-  children, 
-  className = "" 
+export function StaggerItem({
+  children,
+  className = ""
 }: { children: ReactNode; className?: string }) {
   const { shouldDisableAnimations } = useAnimationConfig()
 
@@ -74,8 +74,8 @@ export function StaggerItem({
   }
 
   return (
-    <motion.div 
-      variants={staggerItem} 
+    <motion.div
+      variants={staggerItem}
       className={className}
       style={{ willChange: "opacity, transform" }}
     >
