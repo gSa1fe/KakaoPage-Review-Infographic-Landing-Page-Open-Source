@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from "react"
 import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
-import { ChevronLeft, ChevronRight, Smartphone } from "lucide-react"
+import { ChevronLeft, ChevronRight, Smartphone, Pause, Play } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { FadeIn } from "@/components/animations"
 import { appInfo } from "@/data/review-data"
@@ -46,7 +46,7 @@ export function ScreenshotsSection() {
     <section className="py-20 px-4 relative overflow-hidden">
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent" />
-      
+
       <div className="container mx-auto max-w-6xl relative z-10">
         <FadeIn>
           <div className="text-center mb-12">
@@ -73,7 +73,7 @@ export function ScreenshotsSection() {
           >
             <ChevronLeft className="size-5" />
           </Button>
-          
+
           <Button
             variant="outline"
             size="icon"
@@ -91,7 +91,7 @@ export function ScreenshotsSection() {
             {visibleIndexes.map((index, position) => {
               const isCenter = position === 1
               const screenshot = screenshots[index]
-              
+
               return (
                 <motion.div
                   key={index}
@@ -102,14 +102,13 @@ export function ScreenshotsSection() {
                     z: isCenter ? 10 : 0,
                     rotateY: position === 0 ? 15 : position === 2 ? -15 : 0,
                   }}
-                  transition={{ 
-                    type: "spring", 
-                    stiffness: 300, 
-                    damping: 30 
+                  transition={{
+                    type: "spring",
+                    stiffness: 300,
+                    damping: 30
                   }}
-                  className={`relative shrink-0 cursor-pointer ${
-                    isCenter ? "z-10" : "z-0 hidden sm:block"
-                  }`}
+                  className={`relative shrink-0 cursor-pointer ${isCenter ? "z-10" : "z-0 hidden sm:block"
+                    }`}
                   onClick={() => goToSlide(index)}
                   style={{ perspective: "1000px" }}
                 >
@@ -119,7 +118,7 @@ export function ScreenshotsSection() {
                     <div className="relative bg-gray-900 rounded-[2.5rem] p-2 shadow-2xl shadow-black/30">
                       {/* Notch */}
                       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/3 h-6 bg-gray-900 rounded-b-2xl z-10" />
-                      
+
                       {/* Screen */}
                       <div className="relative rounded-[2rem] overflow-hidden bg-black aspect-[9/19.5]">
                         <AnimatePresence mode="wait">
@@ -142,7 +141,7 @@ export function ScreenshotsSection() {
                           </motion.div>
                         </AnimatePresence>
                       </div>
-                      
+
                       {/* Home Indicator */}
                       <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-1/3 h-1 bg-gray-600 rounded-full" />
                     </div>
@@ -182,11 +181,11 @@ export function ScreenshotsSection() {
             >
               <ChevronLeft className="size-5" />
             </Button>
-            
+
             <span className="text-sm text-muted-foreground">
               {currentIndex + 1} / {screenshots.length}
             </span>
-            
+
             <Button
               variant="outline"
               size="icon"
@@ -206,11 +205,10 @@ export function ScreenshotsSection() {
               <button
                 key={index}
                 onClick={() => goToSlide(index)}
-                className={`rounded-full transition-all hover:scale-125 active:scale-95 ${
-                  index === currentIndex
-                    ? "w-8 h-2 bg-primary"
-                    : "w-2 h-2 bg-muted-foreground/30 hover:bg-muted-foreground/50"
-                }`}
+                className={`rounded-full transition-all hover:scale-125 active:scale-95 ${index === currentIndex
+                  ? "w-8 h-2 bg-primary"
+                  : "w-2 h-2 bg-muted-foreground/30 hover:bg-muted-foreground/50"
+                  }`}
               />
             ))}
           </div>
@@ -221,9 +219,19 @@ export function ScreenshotsSection() {
               variant="ghost"
               size="sm"
               onClick={() => setIsAutoPlaying(!isAutoPlaying)}
-              className="text-xs text-muted-foreground"
+              className="text-xs text-muted-foreground flex items-center gap-1.5"
             >
-              {isAutoPlaying ? "⏸ หยุดเล่นอัตโนมัติ" : "▶ เล่นอัตโนมัติ"}
+              {isAutoPlaying ? (
+                <>
+                  <Pause className="size-3" />
+                  <span>หยุดเล่นอัตโนมัติ</span>
+                </>
+              ) : (
+                <>
+                  <Play className="size-3" />
+                  <span>เล่นอัตโนมัติ</span>
+                </>
+              )}
             </Button>
           </div>
         </div>
